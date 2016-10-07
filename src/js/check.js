@@ -24,4 +24,5 @@ function getMessage(a,b){
 		}
 		return 'Общая площадь артефактов сжатия: '+ artifactsSquare +' пикселей';
 	}
+	alert('Переданы некорректные данные');
 }
