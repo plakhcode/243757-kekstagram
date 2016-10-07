@@ -17,7 +17,7 @@ function getMessage(a,b){
 		}
 		return 'Количество красных точек во всех строчках изображения: ' + amountOfRedPoints;
 	}
-	if (Array.isArray(a) && Array.isArray(a)){
+	if (Array.isArray(a) && Array.isArray(b)){
 		var artifactsSquare = 0;
 		for (var i=0; i < a.length ;i++){
 			artifactsSquare += a[i] * b[i];
