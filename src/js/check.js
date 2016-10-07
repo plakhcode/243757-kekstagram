@@ -10,7 +10,7 @@ function getMessage(a,b){
 	if (typeof a === 'number'){
 		return 'Переданное SVG-изображение содержит '+ a +' объектов и '+ b * 4 +' атрибутов';
 	}
-	if (Array.isArray(a) && typeof b !== 'object'){
+	if (Array.isArray(a) && !Array.isArray(b)){
 		var amountOfRedPoints = 0;
 		for (var i=0; i < a.length ; i++){
 			amountOfRedPoints += a[i];
