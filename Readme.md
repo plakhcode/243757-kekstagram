@@ -1,7 +1,7 @@
 # Личный проект «Кекстаграм» [![Build status][travis-image]][travis-url] [![Dependency status][dependency-image]][dependency-url]
 
 * Студент: [Сергей Плахтий](https://up.htmlacademy.ru/javascript/7/user/243757).
-* Наставник: `Неизвестно`.
+* Наставник: [Дмитрий Демешкин] (https://ru.linkedin.com/in/ddemeshkin).
 
 ---
 
