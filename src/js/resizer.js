@@ -83,6 +83,7 @@
       // Очистка изображения.
       this._ctx.clearRect(0, 0, this._container.width, this._container.height);
 
+
       // Параметры линии.
       // NB! Такие параметры сохраняются на время всего процесса отрисовки
       // canvas'a поэтому важно вовремя поменять их, если нужно начать отрисовку
@@ -106,6 +107,7 @@
 
       var displX = -(this._resizeConstraint.x + this._resizeConstraint.side / 2);
       var displY = -(this._resizeConstraint.y + this._resizeConstraint.side / 2);
+
       // Отрисовка изображения на холсте. Параметры задают изображение, которое
       // нужно отрисовать и координаты его верхнего левого угла.
       // Координаты задаются от центра холста.
@@ -113,12 +115,22 @@
 
       // Отрисовка прямоугольника, обозначающего область изображения после
       // кадрирования. Координаты задаются от центра.
+
       this._ctx.strokeRect(
-          (-this._resizeConstraint.side / 2) - this._ctx.lineWidth / 2,
-          (-this._resizeConstraint.side / 2) - this._ctx.lineWidth / 2,
+          (-this._resizeConstraint.side / 2) + this._ctx.lineWidth / 4,
+          (-this._resizeConstraint.side / 2) + this._ctx.lineWidth / 4,
           this._resizeConstraint.side - this._ctx.lineWidth / 2,
           this._resizeConstraint.side - this._ctx.lineWidth / 2);
 
+      this._ctx.setLineDash([15, 0]);
+      this._ctx.lineWidth = ((this._container.width - this._resizeConstraint.side) / 2);
+      this._ctx.strokeStyle = 'rgba(0, 0, 0, 0.8)';
+
+      this._ctx.strokeRect(
+          (-((this._resizeConstraint.side / 2) + ((this._container.width - this._resizeConstraint.side) / 4))),
+          (-((this._resizeConstraint.side / 2) + ((this._container.height - this._resizeConstraint.side) / 4))),
+          (this._resizeConstraint.side + ((this._container.width - this._resizeConstraint.side) / 2)),
+          (this._resizeConstraint.side + ((this._container.height - this._resizeConstraint.side) / 2)));
       // Восстановление состояния канваса, которое было до вызова ctx.save
       // и последующего изменения системы координат. Нужно для того, чтобы
       // следующий кадр рисовался с привычной системой координат, где точка
