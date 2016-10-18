@@ -83,7 +83,6 @@
       // Очистка изображения.
       this._ctx.clearRect(0, 0, this._container.width, this._container.height);
 
-
       // Параметры линии.
       // NB! Такие параметры сохраняются на время всего процесса отрисовки
       // canvas'a поэтому важно вовремя поменять их, если нужно начать отрисовку
@@ -131,6 +130,16 @@
           (-((this._resizeConstraint.side / 2) + ((this._container.height - this._resizeConstraint.side) / 4))),
           (this._resizeConstraint.side + ((this._container.width - this._resizeConstraint.side) / 2)),
           (this._resizeConstraint.side + ((this._container.height - this._resizeConstraint.side) / 2)));
+
+      var imgWidth = this._image.naturalWidth;
+      var imgHeight = this._image.naturalHeight;
+
+      this._ctx.fillStyle = 'rgba(255, 255, 255, 0.8)';
+      this._ctx.textAlign = 'center';
+      this._ctx.textBaseline = 'bottom';
+      this._ctx.font = 'normal 30px sans-serif';
+      this._ctx.fillText(imgWidth + ' x ' + imgHeight, 0, -((this._resizeConstraint.side / 2) + 4));
+
       // Восстановление состояния канваса, которое было до вызова ctx.save
       // и последующего изменения системы координат. Нужно для того, чтобы
       // следующий кадр рисовался с привычной системой координат, где точка
