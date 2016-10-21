@@ -115,24 +115,29 @@
       // Отрисовка прямоугольника, обозначающего область изображения после
       // кадрирования. Координаты задаются от центра.
 
+      var imgWidth = this._image.naturalWidth;
+      var imgHeight = this._image.naturalHeight;
+
+      this._ctx.beginPath();
+      this._ctx.moveTo(-(imgWidth / 2), -(imgHeight / 2));
+      this._ctx.lineTo((imgWidth / 2), -(imgHeight / 2));
+      this._ctx.lineTo((imgWidth / 2), (imgHeight / 2));
+      this._ctx.lineTo((this._resizeConstraint.side / 2), (this._resizeConstraint.side / 2));
+      this._ctx.lineTo((this._resizeConstraint.side / 2), (-this._resizeConstraint.side / 2));
+      this._ctx.lineTo((-this._resizeConstraint.side / 2), (-this._resizeConstraint.side / 2));
+      this._ctx.lineTo((-this._resizeConstraint.side / 2), (this._resizeConstraint.side / 2));
+      this._ctx.lineTo((this._resizeConstraint.side / 2), (this._resizeConstraint.side / 2));
+      this._ctx.lineTo((imgWidth / 2), (imgHeight / 2));
+      this._ctx.lineTo(-(imgWidth / 2), (imgHeight / 2));
+      this._ctx.lineTo(-(imgWidth / 2), -(imgHeight / 2));
+      this._ctx.fillStyle = 'rgba(0, 0, 0, 0.8)';
+      this._ctx.fill();
+
       this._ctx.strokeRect(
           (-this._resizeConstraint.side / 2) + this._ctx.lineWidth / 4,
           (-this._resizeConstraint.side / 2) + this._ctx.lineWidth / 4,
           this._resizeConstraint.side - this._ctx.lineWidth / 2,
           this._resizeConstraint.side - this._ctx.lineWidth / 2);
-
-      this._ctx.setLineDash([15, 0]);
-      this._ctx.lineWidth = ((this._container.width - this._resizeConstraint.side) / 2);
-      this._ctx.strokeStyle = 'rgba(0, 0, 0, 0.8)';
-
-      this._ctx.strokeRect(
-          (-((this._resizeConstraint.side / 2) + ((this._container.width - this._resizeConstraint.side) / 4))),
-          (-((this._resizeConstraint.side / 2) + ((this._container.height - this._resizeConstraint.side) / 4))),
-          (this._resizeConstraint.side + ((this._container.width - this._resizeConstraint.side) / 2)),
-          (this._resizeConstraint.side + ((this._container.height - this._resizeConstraint.side) / 2)));
-
-      var imgWidth = this._image.naturalWidth;
-      var imgHeight = this._image.naturalHeight;
 
       this._ctx.fillStyle = 'rgba(255, 255, 255, 0.8)';
       this._ctx.textAlign = 'center';
