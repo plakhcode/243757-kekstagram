@@ -88,7 +88,7 @@
       // canvas'a поэтому важно вовремя поменять их, если нужно начать отрисовку
       // чего-либо с другой обводкой.
 
-      // Толщина линии.
+      /*// Толщина линии.
       this._ctx.lineWidth = 6;
       // Цвет обводки.
       this._ctx.strokeStyle = '#ffe753';
@@ -96,7 +96,7 @@
       // расстояние между соседними штрихами.
       this._ctx.setLineDash([15, 10]);
       // Смещение первого штриха от начала линии.
-      this._ctx.lineDashOffset = 7;
+      this._ctx.lineDashOffset = 7;*/
 
       // Сохранение состояния канваса.
       this._ctx.save();
@@ -117,27 +117,68 @@
 
       var imgWidth = this._image.naturalWidth;
       var imgHeight = this._image.naturalHeight;
+      var pointSize = 5;
+      var pointStep = 20;      
 
       this._ctx.beginPath();
       this._ctx.moveTo(-(imgWidth / 2), -(imgHeight / 2));
       this._ctx.lineTo((imgWidth / 2), -(imgHeight / 2));
       this._ctx.lineTo((imgWidth / 2), (imgHeight / 2));
-      this._ctx.lineTo((this._resizeConstraint.side / 2), (this._resizeConstraint.side / 2));
-      this._ctx.lineTo((this._resizeConstraint.side / 2), (-this._resizeConstraint.side / 2));
-      this._ctx.lineTo((-this._resizeConstraint.side / 2), (-this._resizeConstraint.side / 2));
-      this._ctx.lineTo((-this._resizeConstraint.side / 2), (this._resizeConstraint.side / 2));
-      this._ctx.lineTo((this._resizeConstraint.side / 2), (this._resizeConstraint.side / 2));
+      this._ctx.lineTo((this._resizeConstraint.side / 2 + pointSize / 2), (this._resizeConstraint.side / 2 + pointSize / 2));
+      this._ctx.lineTo((this._resizeConstraint.side / 2 + pointSize / 2), (-this._resizeConstraint.side / 2 - pointSize / 2));
+      this._ctx.lineTo((-this._resizeConstraint.side / 2 - pointSize / 2), (-this._resizeConstraint.side / 2 - pointSize / 2));
+      this._ctx.lineTo((-this._resizeConstraint.side / 2 - pointSize / 2), (this._resizeConstraint.side / 2 + pointSize / 2));
+      this._ctx.lineTo((this._resizeConstraint.side / 2 + pointSize / 2), (this._resizeConstraint.side / 2 + pointSize / 2));
       this._ctx.lineTo((imgWidth / 2), (imgHeight / 2));
       this._ctx.lineTo(-(imgWidth / 2), (imgHeight / 2));
       this._ctx.lineTo(-(imgWidth / 2), -(imgHeight / 2));
       this._ctx.fillStyle = 'rgba(0, 0, 0, 0.8)';
       this._ctx.fill();
 
-      this._ctx.strokeRect(
-          (-this._resizeConstraint.side / 2) + this._ctx.lineWidth / 2,
-          (-this._resizeConstraint.side / 2) + this._ctx.lineWidth / 2,
-          this._resizeConstraint.side - this._ctx.lineWidth,
-          this._resizeConstraint.side - this._ctx.lineWidth);
+      /*this._ctx.strokeRect(
+          (-this._resizeConstraint.side / 2) + this._ctx.lineWidth / 4,
+          (-this._resizeConstraint.side / 2) + this._ctx.lineWidth / 4,
+          this._resizeConstraint.side - this._ctx.lineWidth / 2,
+          this._resizeConstraint.side - this._ctx.lineWidth / 2);*/
+
+
+      var x = (-this._resizeConstraint.side / 2 + pointSize / 2);
+      var y = (-this._resizeConstraint.side / 2 + pointSize / 2);
+      var pointsAmount = (this._resizeConstraint.side - pointSize) / pointStep;
+      var step = (this._resizeConstraint.side - pointSize) / Math.round(pointsAmount);
+
+      for (x; x <= (this._resizeConstraint.side / 2 - (pointSize / 2)); x = x + step) {
+        this._ctx.beginPath();
+        /*this._ctx.moveTo(x, y);*/
+        this._ctx.arc(Math.round(x), y, pointSize, 0, 2 * Math.PI, true);
+        this._ctx.fillStyle = '#ffe753';
+        this._ctx.fill();
+      }
+
+      x = this._resizeConstraint.side / 2 - (pointSize / 2);
+      y = y + step;
+      for (y; y <= (this._resizeConstraint.side / 2 - (pointSize / 2)); y = y + step) {
+        this._ctx.beginPath();
+        this._ctx.arc(x, Math.round(y), pointSize, 0, 2 * Math.PI, true);
+        this._ctx.fill();
+      }
+
+      y = this._resizeConstraint.side / 2 - (pointSize / 2);
+      x = x - step;
+      for (x; x >= (-this._resizeConstraint.side / 2 - (pointSize / 2)); x = x - step) {
+        this._ctx.beginPath();
+        /*this._ctx.moveTo(x, y);*/
+        this._ctx.arc(Math.round(x), y, pointSize, 0, 2 * Math.PI, true);
+        this._ctx.fill();
+      }
+
+      x = -this._resizeConstraint.side / 2 + (pointSize / 2);
+      y = y - step;
+      for (y; y >= (-this._resizeConstraint.side / 2 + (pointSize / 2)); y = y - step) {
+        this._ctx.beginPath();
+        this._ctx.arc(x, Math.round(y), pointSize, 0, 2 * Math.PI, true);
+        this._ctx.fill();
+      }
 
       this._ctx.fillStyle = 'rgba(255, 255, 255, 0.8)';
       this._ctx.textAlign = 'center';
@@ -154,7 +195,7 @@
       this._ctx.restore();
     },
 
-    /**
+    /*
      * Включение режима перемещения. Запоминается текущее положение курсора,
      * устанавливается флаг, разрешающий перемещение и добавляются обработчики,
      * позволяющие перерисовывать изображение по мере перетаскивания.
