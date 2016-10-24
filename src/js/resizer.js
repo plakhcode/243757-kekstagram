@@ -118,7 +118,7 @@
       var imgWidth = this._image.naturalWidth;
       var imgHeight = this._image.naturalHeight;
       var pointSize = 5;
-      var pointStep = 20;      
+      var pointStep = 20;
 
       this._ctx.beginPath();
       this._ctx.moveTo(-(imgWidth / 2), -(imgHeight / 2));
