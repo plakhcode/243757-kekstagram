@@ -134,10 +134,10 @@
       this._ctx.fill();
 
       this._ctx.strokeRect(
-          (-this._resizeConstraint.side / 2) + this._ctx.lineWidth / 4,
-          (-this._resizeConstraint.side / 2) + this._ctx.lineWidth / 4,
-          this._resizeConstraint.side - this._ctx.lineWidth / 2,
-          this._resizeConstraint.side - this._ctx.lineWidth / 2);
+          (-this._resizeConstraint.side / 2) + this._ctx.lineWidth / 2,
+          (-this._resizeConstraint.side / 2) + this._ctx.lineWidth / 2,
+          this._resizeConstraint.side - this._ctx.lineWidth,
+          this._resizeConstraint.side - this._ctx.lineWidth);
 
       this._ctx.fillStyle = 'rgba(255, 255, 255, 0.8)';
       this._ctx.textAlign = 'center';
