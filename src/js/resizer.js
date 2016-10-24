@@ -106,6 +106,7 @@
 
       var displX = -(this._resizeConstraint.x + this._resizeConstraint.side / 2);
       var displY = -(this._resizeConstraint.y + this._resizeConstraint.side / 2);
+
       // Отрисовка изображения на холсте. Параметры задают изображение, которое
       // нужно отрисовать и координаты его верхнего левого угла.
       // Координаты задаются от центра холста.
@@ -113,11 +114,36 @@
 
       // Отрисовка прямоугольника, обозначающего область изображения после
       // кадрирования. Координаты задаются от центра.
+
+      var imgWidth = this._image.naturalWidth;
+      var imgHeight = this._image.naturalHeight;
+
+      this._ctx.beginPath();
+      this._ctx.moveTo(-(imgWidth / 2), -(imgHeight / 2));
+      this._ctx.lineTo((imgWidth / 2), -(imgHeight / 2));
+      this._ctx.lineTo((imgWidth / 2), (imgHeight / 2));
+      this._ctx.lineTo((this._resizeConstraint.side / 2), (this._resizeConstraint.side / 2));
+      this._ctx.lineTo((this._resizeConstraint.side / 2), (-this._resizeConstraint.side / 2));
+      this._ctx.lineTo((-this._resizeConstraint.side / 2), (-this._resizeConstraint.side / 2));
+      this._ctx.lineTo((-this._resizeConstraint.side / 2), (this._resizeConstraint.side / 2));
+      this._ctx.lineTo((this._resizeConstraint.side / 2), (this._resizeConstraint.side / 2));
+      this._ctx.lineTo((imgWidth / 2), (imgHeight / 2));
+      this._ctx.lineTo(-(imgWidth / 2), (imgHeight / 2));
+      this._ctx.lineTo(-(imgWidth / 2), -(imgHeight / 2));
+      this._ctx.fillStyle = 'rgba(0, 0, 0, 0.8)';
+      this._ctx.fill();
+
       this._ctx.strokeRect(
-          (-this._resizeConstraint.side / 2) - this._ctx.lineWidth / 2,
-          (-this._resizeConstraint.side / 2) - this._ctx.lineWidth / 2,
-          this._resizeConstraint.side - this._ctx.lineWidth / 2,
-          this._resizeConstraint.side - this._ctx.lineWidth / 2);
+          (-this._resizeConstraint.side / 2) + this._ctx.lineWidth / 2,
+          (-this._resizeConstraint.side / 2) + this._ctx.lineWidth / 2,
+          this._resizeConstraint.side - this._ctx.lineWidth,
+          this._resizeConstraint.side - this._ctx.lineWidth);
+
+      this._ctx.fillStyle = 'rgba(255, 255, 255, 0.8)';
+      this._ctx.textAlign = 'center';
+      this._ctx.textBaseline = 'bottom';
+      this._ctx.font = 'normal 30px sans-serif';
+      this._ctx.fillText(imgWidth + ' x ' + imgHeight, 0, -((this._resizeConstraint.side / 2) + 4));
 
       // Восстановление состояния канваса, которое было до вызова ctx.save
       // и последующего изменения системы координат. Нужно для того, чтобы
