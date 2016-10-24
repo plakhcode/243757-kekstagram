@@ -117,18 +117,17 @@
 
       var imgWidth = this._image.naturalWidth;
       var imgHeight = this._image.naturalHeight;
-      var pointSize = 5;
-      var pointStep = 20;
+      var brokenLineSide = 15;
 
       this._ctx.beginPath();
       this._ctx.moveTo(-(imgWidth / 2), -(imgHeight / 2));
       this._ctx.lineTo((imgWidth / 2), -(imgHeight / 2));
       this._ctx.lineTo((imgWidth / 2), (imgHeight / 2));
-      this._ctx.lineTo((this._resizeConstraint.side / 2 + pointSize / 2), (this._resizeConstraint.side / 2 + pointSize / 2));
-      this._ctx.lineTo((this._resizeConstraint.side / 2 + pointSize / 2), (-this._resizeConstraint.side / 2 - pointSize / 2));
-      this._ctx.lineTo((-this._resizeConstraint.side / 2 - pointSize / 2), (-this._resizeConstraint.side / 2 - pointSize / 2));
-      this._ctx.lineTo((-this._resizeConstraint.side / 2 - pointSize / 2), (this._resizeConstraint.side / 2 + pointSize / 2));
-      this._ctx.lineTo((this._resizeConstraint.side / 2 + pointSize / 2), (this._resizeConstraint.side / 2 + pointSize / 2));
+      this._ctx.lineTo((this._resizeConstraint.side / 2 + brokenLineSide / 2), (this._resizeConstraint.side / 2 + brokenLineSide / 2));
+      this._ctx.lineTo((this._resizeConstraint.side / 2 + brokenLineSide / 2), (-this._resizeConstraint.side / 2 - brokenLineSide / 2));
+      this._ctx.lineTo((-this._resizeConstraint.side / 2 - brokenLineSide / 2), (-this._resizeConstraint.side / 2 - brokenLineSide / 2));
+      this._ctx.lineTo((-this._resizeConstraint.side / 2 - brokenLineSide / 2), (this._resizeConstraint.side / 2 + brokenLineSide / 2));
+      this._ctx.lineTo((this._resizeConstraint.side / 2 + brokenLineSide / 2), (this._resizeConstraint.side / 2 + brokenLineSide / 2));
       this._ctx.lineTo((imgWidth / 2), (imgHeight / 2));
       this._ctx.lineTo(-(imgWidth / 2), (imgHeight / 2));
       this._ctx.lineTo(-(imgWidth / 2), -(imgHeight / 2));
@@ -142,49 +141,88 @@
           this._resizeConstraint.side - this._ctx.lineWidth / 2);*/
 
 
-      var x = (-this._resizeConstraint.side / 2 + pointSize / 2);
-      var y = (-this._resizeConstraint.side / 2 + pointSize / 2);
-      var pointsAmount = (this._resizeConstraint.side - pointSize) / pointStep;
-      var step = (this._resizeConstraint.side - pointSize) / Math.round(pointsAmount);
 
-      for (x; x <= (this._resizeConstraint.side / 2 - (pointSize / 2)); x = x + step) {
+
+      var linesAmount = this._resizeConstraint.side / brokenLineSide;
+      if ((Math.round(linesAmount) + 1) % 2) {
+        linesAmount = linesAmount + 1;
+      } else {
+        linesAmount = linesAmount + 0;
+      }
+      var step = this._resizeConstraint.side / Math.round(linesAmount);
+      var i = 1;
+      this._ctx.strokeStyle = '#ffe753';
+      this._ctx.lineWidth = 4;
+
+      var x = (-this._resizeConstraint.side / 2 + step / 2);
+      var y = (-this._resizeConstraint.side / 2 - step / 2);
+
+      for (x; x <= this._resizeConstraint.side / 2; x = x + step) {
         this._ctx.beginPath();
-        /*this._ctx.moveTo(x, y);*/
-        this._ctx.arc(Math.round(x), y, pointSize, 0, 2 * Math.PI, true);
-        this._ctx.fillStyle = '#ffe753';
-        this._ctx.fill();
+        if (i % 2) {
+          this._ctx.moveTo(x - this._ctx.lineWidth / 2, y);
+          this._ctx.lineTo(x + step, y + step);
+        } else {
+          this._ctx.moveTo(x - this._ctx.lineWidth / 2, y + step);
+          this._ctx.lineTo(x + step, y);
+        }
+        this._ctx.stroke();
+        i++;
       }
 
-      x = this._resizeConstraint.side / 2 - (pointSize / 2);
-      y = y + step;
-      for (y; y <= (this._resizeConstraint.side / 2 - (pointSize / 2)); y = y + step) {
+      y = (-this._resizeConstraint.side / 2 + step / 2);
+      i = 1;
+
+      for (y; y <= this._resizeConstraint.side / 2; y = y + step) {
         this._ctx.beginPath();
-        this._ctx.arc(x, Math.round(y), pointSize, 0, 2 * Math.PI, true);
-        this._ctx.fill();
+        if (i % 2) {
+          this._ctx.moveTo(x, y - this._ctx.lineWidth / 2);
+          this._ctx.lineTo(x - step, y + step);
+        } else {
+          this._ctx.moveTo(x - step, y - this._ctx.lineWidth / 2);
+          this._ctx.lineTo(x, y + step);
+        }
+        this._ctx.stroke();
+        i++;
       }
 
-      y = this._resizeConstraint.side / 2 - (pointSize / 2);
-      x = x - step;
-      for (x; x >= (-this._resizeConstraint.side / 2 - (pointSize / 2)); x = x - step) {
+      x = (this._resizeConstraint.side / 2 - step / 2);
+      i = 1;
+
+      for (x; x >= -this._resizeConstraint.side / 2; x = x - step) {
         this._ctx.beginPath();
-        /*this._ctx.moveTo(x, y);*/
-        this._ctx.arc(Math.round(x), y, pointSize, 0, 2 * Math.PI, true);
-        this._ctx.fill();
+        if (i % 2) {
+          this._ctx.moveTo(x + this._ctx.lineWidth / 2, y);
+          this._ctx.lineTo(x - step, y - step);
+        } else {
+          this._ctx.moveTo(x + this._ctx.lineWidth / 2, y - step);
+          this._ctx.lineTo(x - step, y);
+        }
+        this._ctx.stroke();
+        i++;
       }
 
-      x = -this._resizeConstraint.side / 2 + (pointSize / 2);
-      y = y - step;
-      for (y; y >= (-this._resizeConstraint.side / 2 + (pointSize / 2)); y = y - step) {
+      y = (this._resizeConstraint.side / 2 - step / 2);
+      i = 1;
+
+      for (y; y >= -this._resizeConstraint.side / 2; y = y - step) {
         this._ctx.beginPath();
-        this._ctx.arc(x, Math.round(y), pointSize, 0, 2 * Math.PI, true);
-        this._ctx.fill();
+        if (i % 2) {
+          this._ctx.moveTo(x, y + this._ctx.lineWidth / 2);
+          this._ctx.lineTo(x + step, y - step);
+        } else {
+          this._ctx.moveTo(x + step, y + this._ctx.lineWidth / 2);
+          this._ctx.lineTo(x, y - step);
+        }
+        this._ctx.stroke();
+        i++;
       }
 
-      this._ctx.fillStyle = 'rgba(255, 255, 255, 0.8)';
+      this._ctx.fillStyle = 'rgba(255, 255, 255, 1)';
       this._ctx.textAlign = 'center';
       this._ctx.textBaseline = 'bottom';
       this._ctx.font = 'normal 30px sans-serif';
-      this._ctx.fillText(imgWidth + ' x ' + imgHeight, 0, -((this._resizeConstraint.side / 2) + 4));
+      this._ctx.fillText(imgWidth + ' x ' + imgHeight, 0, -((this._resizeConstraint.side / 2) + 15));
 
       // Восстановление состояния канваса, которое было до вызова ctx.save
       // и последующего изменения системы координат. Нужно для того, чтобы
