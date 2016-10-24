@@ -119,7 +119,7 @@
       var imgHeight = this._image.naturalHeight;
       var brokenLineSide = 15;
 
-      this._ctx.beginPath();
+      /*this._ctx.beginPath();
       this._ctx.moveTo(-(imgWidth / 2), -(imgHeight / 2));
       this._ctx.lineTo((imgWidth / 2), -(imgHeight / 2));
       this._ctx.lineTo((imgWidth / 2), (imgHeight / 2));
@@ -132,7 +132,7 @@
       this._ctx.lineTo(-(imgWidth / 2), (imgHeight / 2));
       this._ctx.lineTo(-(imgWidth / 2), -(imgHeight / 2));
       this._ctx.fillStyle = 'rgba(0, 0, 0, 0.8)';
-      this._ctx.fill();
+      this._ctx.fill();*/
 
       /*this._ctx.strokeRect(
           (-this._resizeConstraint.side / 2) + this._ctx.lineWidth / 4,
