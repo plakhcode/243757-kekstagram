@@ -170,6 +170,42 @@
     }
   };
 
+  var startX = document.getElementById('resize-x');
+  var startY = document.getElementById('resize-y');
+  var resizeSize = document.getElementById('resize-size');
+  startX.min = 0;
+  startY.min = 0;
+  resizeSize.min = 0;
+
+  resizeSize.oninput = function() {
+    resizeSize.max = Math.min((currentResizer._image.naturalWidth - +startX.value), (currentResizer._image.naturalHeight - +startY.value));
+    if (+resizeSize.value > +resizeSize.max) {
+      document.getElementById('resize-fwd').disabled = true;
+    } else {
+      document.getElementById('resize-fwd').disabled = false;
+    }
+  };
+
+  startX.oninput = function() {
+    startX.max = currentResizer._image.naturalWidth;
+    resizeSize.max = Math.min((currentResizer._image.naturalWidth - +startX.value), (currentResizer._image.naturalHeight - +startY.value));
+    if (+startX.value < +startX.min || +startX.value > +startX.max || +resizeSize.value > +resizeSize.max) {
+      document.getElementById('resize-fwd').disabled = true;
+    } else {
+      document.getElementById('resize-fwd').disabled = false;
+    }
+  };
+
+  startY.oninput = function() {
+    startY.max = currentResizer._image.naturalHeight;
+    resizeSize.max = Math.min((currentResizer._image.naturalWidth - +startX.value), (currentResizer._image.naturalHeight - +startY.value));
+    if (+startY.value < +startY.min || +startY.value > +startY.max || +resizeSize.value > +resizeSize.max) {
+      document.getElementById('resize-fwd').disabled = true;
+    } else {
+      document.getElementById('resize-fwd').disabled = false;
+    }
+  };
+
   /**
    * Обработка сброса формы кадрирования. Возвращает в начальное состояние
    * и обновляет фон.
@@ -190,22 +226,23 @@
    * кропнутое изображение в форму добавления фильтра и показывает ее.
    * @param {Event} evt
    */
+
+
+
+
   resizeForm.onsubmit = function(evt) {
     evt.preventDefault();
 
     if (resizeFormIsValid()) {
       var image = currentResizer.exportImage().src;
-
       var thumbnails = filterForm.querySelectorAll('.upload-filter-preview');
       for (var i = 0; i < thumbnails.length; i++) {
         thumbnails[i].style.backgroundImage = 'url(' + image + ')';
       }
-
-      filterImage.src = image;
-
-      resizeForm.classList.add('invisible');
-      filterForm.classList.remove('invisible');
     }
+    filterImage.src = image;
+    resizeForm.classList.add('invisible');
+    filterForm.classList.remove('invisible');
   };
 
   /**
@@ -260,7 +297,7 @@
     // состояние или просто перезаписывать.
     filterImage.className = 'filter-image-preview ' + filterMap[selectedFilter];
   };
-
+  alert(currentResizer._image.naturalWidth);
   cleanupResizer();
   updateBackground();
 })();
