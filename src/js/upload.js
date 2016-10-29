@@ -297,7 +297,6 @@
     // состояние или просто перезаписывать.
     filterImage.className = 'filter-image-preview ' + filterMap[selectedFilter];
   };
-  alert(currentResizer._image.naturalWidth);
   cleanupResizer();
   updateBackground();
 })();
