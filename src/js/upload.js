@@ -139,6 +139,7 @@
    * и показывается форма кадрирования.
    * @param {Event} evt
    */
+
   uploadForm.onchange = function(evt) {
     var element = evt.target;
     if (element.id === 'upload-file') {
@@ -170,6 +171,25 @@
     }
   };
 
+  var startX = document.getElementById('resize-x');
+  var startY = document.getElementById('resize-y');
+  var resizeSize = document.getElementById('resize-size');
+  var submitButton = document.getElementById('resize-fwd');
+
+  function validate() {
+    var x = Number(startX.value);
+    var y = Number(startY.value);
+    var size = Number(resizeSize.value);
+    var width = currentResizer._image.naturalWidth;
+    var height = currentResizer._image.naturalHeight;
+
+    submitButton.disabled = x < 0 || y < 0 || size < 0 || x + size > width || y + size > height;
+  }
+
+  resizeSize.oninput = validate;
+  startX.oninput = validate;
+  startY.oninput = validate;
+
   /**
    * Обработка сброса формы кадрирования. Возвращает в начальное состояние
    * и обновляет фон.
@@ -190,19 +210,20 @@
    * кропнутое изображение в форму добавления фильтра и показывает ее.
    * @param {Event} evt
    */
+
+
+
+
   resizeForm.onsubmit = function(evt) {
     evt.preventDefault();
 
     if (resizeFormIsValid()) {
       var image = currentResizer.exportImage().src;
-
       var thumbnails = filterForm.querySelectorAll('.upload-filter-preview');
       for (var i = 0; i < thumbnails.length; i++) {
         thumbnails[i].style.backgroundImage = 'url(' + image + ')';
       }
-
       filterImage.src = image;
-
       resizeForm.classList.add('invisible');
       filterForm.classList.remove('invisible');
     }
@@ -260,7 +281,6 @@
     // состояние или просто перезаписывать.
     filterImage.className = 'filter-image-preview ' + filterMap[selectedFilter];
   };
-
   cleanupResizer();
   updateBackground();
 })();
