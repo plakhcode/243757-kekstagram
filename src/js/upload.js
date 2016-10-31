@@ -196,7 +196,7 @@
    * @param {Event} evt
    */
   resizeForm.onreset = function(evt) {
-    evt.preventDefault();
+//    evt.preventDefault();
 
     cleanupResizer();
     updateBackground();
