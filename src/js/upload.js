@@ -223,10 +223,10 @@
       for (var i = 0; i < thumbnails.length; i++) {
         thumbnails[i].style.backgroundImage = 'url(' + image + ')';
       }
+      filterImage.src = image;
+      resizeForm.classList.add('invisible');
+      filterForm.classList.remove('invisible');
     }
-    filterImage.src = image;
-    resizeForm.classList.add('invisible');
-    filterForm.classList.remove('invisible');
   };
 
   /**
