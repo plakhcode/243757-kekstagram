@@ -140,16 +140,6 @@
    * @param {Event} evt
    */
 
-  var startX = document.getElementById('resize-x');
-  var startY = document.getElementById('resize-y');
-  var resizeSize = document.getElementById('resize-size');
-  var submitButton = document.getElementById('resize-fwd');
-  function nulling() {
-    startX.value = null;
-    startY.value = null;
-    resizeSize.value = null;
-  }
-
   uploadForm.onchange = function(evt) {
     var element = evt.target;
     if (element.id === 'upload-file') {
@@ -179,8 +169,12 @@
         showMessage(Action.ERROR);
       }
     }
-    nulling();
   };
+
+  var startX = document.getElementById('resize-x');
+  var startY = document.getElementById('resize-y');
+  var resizeSize = document.getElementById('resize-size');
+  var submitButton = document.getElementById('resize-fwd');
 
   function validate() {
     var x = Number(startX.value);
@@ -195,35 +189,6 @@
   resizeSize.oninput = validate;
   startX.oninput = validate;
   startY.oninput = validate;
-
-/*  resizeSize.oninput = function() {
-    resizeSize.max = Math.min((currentResizer._image.naturalWidth - +startX.value), (currentResizer._image.naturalHeight - +startY.value));
-    if (+resizeSize.value > +resizeSize.max) {
-      document.getElementById('resize-fwd').disabled = true;
-    } else {
-      document.getElementById('resize-fwd').disabled = false;
-    }
-  };
-
-  startX.oninput = function() {
-    startX.max = currentResizer._image.naturalWidth;
-    resizeSize.max = Math.min((currentResizer._image.naturalWidth - +startX.value), (currentResizer._image.naturalHeight - +startY.value));
-    if (+startX.value < +startX.min || +startX.value > +startX.max || +resizeSize.value > +resizeSize.max) {
-      document.getElementById('resize-fwd').disabled = true;
-    } else {
-      document.getElementById('resize-fwd').disabled = false;
-    }
-  };
-
-  startY.oninput = function() {
-    startY.max = currentResizer._image.naturalHeight;
-    resizeSize.max = Math.min((currentResizer._image.naturalWidth - +startX.value), (currentResizer._image.naturalHeight - +startY.value));
-    if (+startY.value < +startY.min || +startY.value > +startY.max || +resizeSize.value > +resizeSize.max) {
-      document.getElementById('resize-fwd').disabled = true;
-    } else {
-      document.getElementById('resize-fwd').disabled = false;
-    }
-  };  */
 
   /**
    * Обработка сброса формы кадрирования. Возвращает в начальное состояние
