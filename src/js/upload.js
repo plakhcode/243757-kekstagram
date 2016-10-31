@@ -226,6 +226,9 @@
       filterImage.src = image;
       resizeForm.classList.add('invisible');
       filterForm.classList.remove('invisible');
+      var preloadFilter = Cookies.get('upload-filter');
+      document.getElementById('upload-' + preloadFilter).checked = true;
+      filterImage.className = 'filter-image-preview ' + preloadFilter;
     }
   };
 
@@ -275,7 +278,7 @@
     var selectedFilter = [].filter.call(filterForm['upload-filter'], function(item) {
       return item.checked;
     })[0].value;
-
+    Cookies.set('upload-filter', filterMap[selectedFilter], {expires: 7});
     // Класс перезаписывается, а не обновляется через classList потому что нужно
     // убрать предыдущий примененный класс. Для этого нужно или запоминать его
     // состояние или просто перезаписывать.
