@@ -211,9 +211,6 @@
    * @param {Event} evt
    */
 
-
-
-
   resizeForm.onsubmit = function(evt) {
     evt.preventDefault();
 
@@ -278,7 +275,18 @@
     var selectedFilter = [].filter.call(filterForm['upload-filter'], function(item) {
       return item.checked;
     })[0].value;
-    Cookies.set('upload-filter', filterMap[selectedFilter], {expires: 7});
+    var date = new Date();
+    var thisYear = date.getFullYear();
+    var thisBirthdayOfGrace = new Date(thisYear, 11, 9);
+    var cookieExpiring;
+    if (+date > +thisBirthdayOfGrace) {
+      cookieExpiring = Math.floor((+date - thisBirthdayOfGrace) / (1000 * 3600 * 24));
+    } else {
+      thisYear = date.getFullYear() - 1;
+      thisBirthdayOfGrace = new Date(thisYear, 11, 9);
+      cookieExpiring = Math.floor((+date - thisBirthdayOfGrace) / (1000 * 3600 * 24));
+    }
+    Cookies.set('upload-filter', filterMap[selectedFilter], {expires: cookieExpiring});
     // Класс перезаписывается, а не обновляется через classList потому что нужно
     // убрать предыдущий примененный класс. Для этого нужно или запоминать его
     // состояние или просто перезаписывать.
