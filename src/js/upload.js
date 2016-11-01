@@ -190,6 +190,24 @@
   startX.oninput = validate;
   startY.oninput = validate;
 
+  function saveFilterToCookie(selectedFilter) {
+    var date = new Date();
+    var lastBirthdayOfGrace = new Date(date.getFullYear(), 11, 9);
+    var expires;
+    if (date < lastBirthdayOfGrace) {
+      lastBirthdayOfGrace.setFullYear(date.getFullYear() - 1);
+    }
+    expires = Math.floor((date - lastBirthdayOfGrace) / (1000 * 3600 * 24));
+    Cookies.set('upload-filter', filterMap[selectedFilter], {expires: expires});
+  }
+
+  function restoreFilterFromCookie() {
+    var preloadFilter = Cookies.get('upload-filter');
+    if(preloadFilter) {
+      document.getElementById('upload-' + preloadFilter).checked = true;
+      filterImage.className = 'filter-image-preview ' + preloadFilter;
+    }
+  }
   /**
    * Обработка сброса формы кадрирования. Возвращает в начальное состояние
    * и обновляет фон.
@@ -211,9 +229,6 @@
    * @param {Event} evt
    */
 
-
-
-
   resizeForm.onsubmit = function(evt) {
     evt.preventDefault();
 
@@ -226,6 +241,7 @@
       filterImage.src = image;
       resizeForm.classList.add('invisible');
       filterForm.classList.remove('invisible');
+      restoreFilterFromCookie();
     }
   };
 
@@ -271,10 +287,11 @@
         'marvin': 'filter-marvin'
       };
     }
-
     var selectedFilter = [].filter.call(filterForm['upload-filter'], function(item) {
       return item.checked;
     })[0].value;
+
+    saveFilterToCookie(selectedFilter);
 
     // Класс перезаписывается, а не обновляется через classList потому что нужно
     // убрать предыдущий примененный класс. Для этого нужно или запоминать его
