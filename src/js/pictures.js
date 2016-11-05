@@ -21,7 +21,7 @@ var getPictures = function(url, callback) {
     script.parentNode.removeChild(script);
   };
 
-  script.src = url + '?callback=' + '__jsonpCallback';
+  script.src = url + (url.match(/\?/) ? '&' : '?') + 'callback=__jsonpCallback';
   document.body.appendChild(script);
 
 };
