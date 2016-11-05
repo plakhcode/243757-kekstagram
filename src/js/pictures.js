@@ -1,14 +1,26 @@
 'use strict';
 
-var pictures = [];
-
 document.querySelector('.filters').classList.add('hidden');
 
 var template = document.querySelector('template');
 var container = document.querySelector('.pictures');
 var templateContainer = 'content' in template ? template.content : template;
 
-var getPhoto = function(photos) {
+var PICTURES_DATA_URL = 'http://localhost:1507/api/pictures';
+
+var getPictures = function(url, callback) {
+
+  window.__jsonpCallback = function(data) {
+    callback(data);
+  };
+
+  var script = document.createElement('script');
+  script.src = url + '?callback=' + '__jsonpCallback';
+  document.body.appendChild(script);
+};
+
+
+var getPhotoElement = function(photos) {
   var photoElement = templateContainer.querySelector('.picture').cloneNode(true);
 
   var image = new Image();
@@ -16,7 +28,6 @@ var getPhoto = function(photos) {
   image.onload = function() {
     photoElement.querySelector('img').src = image.src;
   };
-
   image.onerror = function() {
     photoElement.classList.add('picture-load-failure');
   };
@@ -33,8 +44,12 @@ var getPhoto = function(photos) {
   return photoElement;
 };
 
-pictures.forEach(function(photo) {
-  container.appendChild(getPhoto(photo));
-});
+var setPictures = function(pictures) {
+  pictures.forEach(function(photo) {
+    container.appendChild(getPhotoElement(photo));
+  });
+};
+
+getPictures(PICTURES_DATA_URL, setPictures);
 
 document.querySelector('.filters').classList.remove('hidden');
