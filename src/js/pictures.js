@@ -12,13 +12,19 @@ var getPictures = function(url, callback) {
 
   window.__jsonpCallback = function(data) {
     callback(data);
+    script.parentNode.removeChild(script);
   };
 
   var script = document.createElement('script');
+
+  script.onerror = function() {
+    script.parentNode.removeChild(script);
+  };
+
   script.src = url + '?callback=' + '__jsonpCallback';
   document.body.appendChild(script);
-};
 
+};
 
 var getPhotoElement = function(photos) {
   var photoElement = templateContainer.querySelector('.picture').cloneNode(true);
