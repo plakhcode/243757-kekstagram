@@ -302,4 +302,4 @@ define(function() {
     cleanupResizer();
     updateBackground();
   };
-})
+});
