@@ -1,6 +1,6 @@
 'use strict';
 
-require(['./upload', './resizer', './pictures'], function(upload, resizer, pictures) {
+require(['./upload', './pictures'], function(upload, pictures) {
   upload();
   pictures();
 });
