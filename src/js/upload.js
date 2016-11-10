@@ -1,4 +1,4 @@
-/* global Resizer: true */
+
 
 /**
  * @fileoverview
@@ -154,7 +154,10 @@ define(function() {
           fileReader.onload = function() {
             cleanupResizer();
 
-            currentResizer = new Resizer(fileReader.result);
+            require(['./resizer'], function(Resizer) {
+              currentResizer = new Resizer(fileReader.result);
+            });
+//            currentResizer = new Resizer(fileReader.result);
             currentResizer.setElement(resizeForm);
             uploadMessage.classList.add('invisible');
 
