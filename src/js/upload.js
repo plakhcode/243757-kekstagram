@@ -7,7 +7,7 @@
 
 'use strict';
 
-define(function() {
+define(['./resizer'], function(Resizer) {
   return function() {
     /** @enum {string} */
     var FileType = {
@@ -154,9 +154,7 @@ define(function() {
           fileReader.onload = function() {
             cleanupResizer();
 
-            define(['./resizer'], function(Resizer) {
-              currentResizer = new Resizer(fileReader.result);
-            });
+            currentResizer = new Resizer(fileReader.result);
             currentResizer.setElement(resizeForm);
             uploadMessage.classList.add('invisible');
 
