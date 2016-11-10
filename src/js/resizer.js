@@ -1,10 +1,6 @@
 'use strict';
 
-(function() {
-  /**
-   * @constructor
-   * @param {string} image
-   */
+define(function() {
   var Resizer = function(image) {
     // Изображение, с которым будет вестись работа.
     this._image = new Image();
@@ -83,21 +79,6 @@
       // Очистка изображения.
       this._ctx.clearRect(0, 0, this._container.width, this._container.height);
 
-      // Параметры линии.
-      // NB! Такие параметры сохраняются на время всего процесса отрисовки
-      // canvas'a поэтому важно вовремя поменять их, если нужно начать отрисовку
-      // чего-либо с другой обводкой.
-
-      /*// Толщина линии.
-      this._ctx.lineWidth = 6;
-      // Цвет обводки.
-      this._ctx.strokeStyle = '#ffe753';
-      // Размер штрихов. Первый элемент массива задает длину штриха, второй
-      // расстояние между соседними штрихами.
-      this._ctx.setLineDash([15, 10]);
-      // Смещение первого штриха от начала линии.
-      this._ctx.lineDashOffset = 7;*/
-
       // Сохранение состояния канваса.
       this._ctx.save();
 
@@ -133,15 +114,6 @@
       this._ctx.lineTo(-(imgWidth / 2), -(imgHeight / 2));
       this._ctx.fillStyle = 'rgba(0, 0, 0, 0.8)';
       this._ctx.fill();
-
-      /*this._ctx.strokeRect(
-          (-this._resizeConstraint.side / 2) + this._ctx.lineWidth / 4,
-          (-this._resizeConstraint.side / 2) + this._ctx.lineWidth / 4,
-          this._resizeConstraint.side - this._ctx.lineWidth / 2,
-          this._resizeConstraint.side - this._ctx.lineWidth / 2);*/
-
-
-
 
       var linesAmount = this._resizeConstraint.side / brokenLineSide;
       if ((Math.round(linesAmount) + 1) % 2) {
@@ -421,5 +393,5 @@
     this.y = y;
   };
 
-  window.Resizer = Resizer;
-})();
+  return Resizer;
+});
