@@ -154,10 +154,9 @@ define(function() {
           fileReader.onload = function() {
             cleanupResizer();
 
-            require(['./resizer'], function(Resizer) {
+            define(['./resizer'], function(Resizer) {
               currentResizer = new Resizer(fileReader.result);
             });
-//            currentResizer = new Resizer(fileReader.result);
             currentResizer.setElement(resizeForm);
             uploadMessage.classList.add('invisible');
 
