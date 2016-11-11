@@ -8,13 +8,14 @@ define(['./review', './load'], function(review, load) {
 
     var container = document.querySelector('.pictures');
 
-    var setPictures = function(pictures) {
-      pictures.forEach(function(photo) {
-        container.appendChild(review(photo));
+    var drawPictures = function(pictures) {
+      pictures.forEach(function(photo, i) {
+        container.appendChild(review(photo, i));
+        i += i;
       });
     };
 
-    load(PICTURES_DATA_URL, setPictures);
+    load(PICTURES_DATA_URL, drawPictures);
 
     document.querySelector('.filters').classList.remove('hidden');
   };

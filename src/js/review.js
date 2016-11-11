@@ -1,7 +1,7 @@
 'use strict';
 
 define(function() {
-  return function(photos) {
+  return function(photos, number) {
 
     var template = document.querySelector('template');
     var templateContainer = 'content' in template ? template.content : template;
@@ -22,6 +22,8 @@ define(function() {
     } else {
       image.src = photos.url;
     }
+
+    image.number = number;
 
     photoElement.querySelector('.picture-comments').textContent = photos.comments;
     photoElement.querySelector('.picture-likes').textContent = photos.likes;
