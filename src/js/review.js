@@ -12,6 +12,7 @@ define(function() {
 
     image.onload = function() {
       photoElement.querySelector('img').src = image.src;
+      photoElement.setAttribute('number', number);
     };
     image.onerror = function() {
       photoElement.classList.add('picture-load-failure');
@@ -22,8 +23,6 @@ define(function() {
     } else {
       image.src = photos.url;
     }
-
-    image.number = number;
 
     photoElement.querySelector('.picture-comments').textContent = photos.comments;
     photoElement.querySelector('.picture-likes').textContent = photos.likes;
