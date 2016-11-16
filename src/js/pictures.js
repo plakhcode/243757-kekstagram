@@ -1,6 +1,6 @@
 'use strict';
 
-define(['./review', './load', './gallery', './picture'], function(review, load, picture) {
+define(['./review', './load', './picture'], function(review, load, picture) {
   return function() {
     document.querySelector('.filters').classList.add('hidden');
 
@@ -13,11 +13,13 @@ define(['./review', './load', './gallery', './picture'], function(review, load, 
         container.appendChild(review(photo, i));
         i += i;
       });
+      picture();
     };
 
     load(PICTURES_DATA_URL, drawPictures);
 
-    document.addEventListener('DOMContentLoaded', picture);
+//    document.addEventListener('DOMContentLoaded', picture());
+
 
 /*    setTimeout(function() {
       picture();
