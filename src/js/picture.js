@@ -16,12 +16,10 @@ define(['./gallery'], function(Gallery) {
     for (var i = 0; i < pictureSquare.length; i++) {
       pictureSquare[i].onclick = function(e) {
         e.preventDefault();
+        var num = e.target.getAttribute('number');
+        console.log(num);
         initGallery();
       };
     }
-//    pictureSquare.onclick = function(e) {
-//      e.preventDefault();
-//      initGallery();
-//    };
   };
 });
