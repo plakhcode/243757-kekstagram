@@ -19,8 +19,9 @@ define(function() {
       };
     };
     this.nextHandler = function() {
-      self.image.onclick = function() {
-        if (self.activePicture < self.pictures.length) {
+      self.image.onclick = function(e) {
+        e.preventDefault();
+        if (self.activePicture < (self.pictures.length - 1)) {
           self.activePicture = self.activePicture + 1;
         } else {
           self.activePicture = 0;

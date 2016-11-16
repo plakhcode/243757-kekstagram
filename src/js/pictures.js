@@ -1,6 +1,6 @@
 'use strict';
 
-define(['./review', './load', './gallery', './picture'], function(review, load, Gallery) {
+define(['./review', './load', './gallery', './picture'], function(review, load, picture) {
   return function() {
     document.querySelector('.filters').classList.add('hidden');
 
@@ -17,19 +17,13 @@ define(['./review', './load', './gallery', './picture'], function(review, load, 
 
     load(PICTURES_DATA_URL, drawPictures);
 
-    var showGallery = function() {
-      var commenter = document.querySelectorAll('.picture-comments');
-      var liker = document.querySelectorAll('.picture-likes');
-      var imger = document.querySelectorAll('.picture img');
-      var gallery = new Gallery(imger, commenter, liker);
-      container.onclick = function() {
-        gallery.show(10);
-      };
-    };
+//    document.addEventListener('DOMContentLoaded', picture());
 
     setTimeout(function() {
-      showGallery();
-    }, 2000);
+      picture();
+    }, 3000);
+
+
 
     document.querySelector('.filters').classList.remove('hidden');
   };
