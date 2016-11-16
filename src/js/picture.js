@@ -13,11 +13,11 @@ define(['./gallery'], function(Gallery) {
 
     var pictureSquare = document.querySelectorAll('div.pictures > a');
     console.log(pictureSquare[10]);
+    var num = pictureSquare[10].getAttribute('number');
+    console.log(num);
     for (var i = 0; i < pictureSquare.length; i++) {
       pictureSquare[i].onclick = function(e) {
         e.preventDefault();
-        var num = e.target.getAttribute('number');
-        console.log(num);
         initGallery();
       };
     }

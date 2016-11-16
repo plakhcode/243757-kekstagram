@@ -18,15 +18,6 @@ define(['./review', './load', './picture'], function(review, load, picture) {
 
     load(PICTURES_DATA_URL, drawPictures);
 
-//    document.addEventListener('DOMContentLoaded', picture());
-
-
-/*    setTimeout(function() {
-      picture();
-    }, 3000); */
-
-
-
     document.querySelector('.filters').classList.remove('hidden');
   };
 });
