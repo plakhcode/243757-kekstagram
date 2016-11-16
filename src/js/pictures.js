@@ -17,11 +17,11 @@ define(['./review', './load', './gallery', './picture'], function(review, load, 
 
     load(PICTURES_DATA_URL, drawPictures);
 
-//    document.addEventListener('DOMContentLoaded', picture());
+    document.addEventListener('DOMContentLoaded', picture);
 
-    setTimeout(function() {
+/*    setTimeout(function() {
       picture();
-    }, 3000);
+    }, 3000); */
 
 
 

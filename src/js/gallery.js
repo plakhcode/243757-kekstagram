@@ -12,7 +12,13 @@ define(function() {
     this.close = document.querySelector('.gallery-overlay-close');
     this.image = document.querySelector('.gallery-overlay-image');
 
-    var self = this;
+    this.showNext = this.showNext.bind(this);
+    this.closePic = this.closePic.bind(this);
+    this.image.addEventListener('click', this.showNext);
+    this.image.addEventListener('click', this.closePic);
+
+
+/*    var self = this;
     this.closeHandler = function() {
       self.close.onclick = function() {
         self.hide();
@@ -28,25 +34,34 @@ define(function() {
         }
         self.setActivePicture(self.activePicture);
       };
-    };
+    }; */
   };
 
   Gallery.prototype = {
-//    setPictures: function(data) {
-//      this.pictures = data;
-//    },
+
+    showNext: function(e) {
+      e.preventDefault();
+      if (this.activePicture < (this.pictures.length - 1)) {
+        this.activePicture = this.activePicture + 1;
+      } else {
+        this.activePicture = 0;
+      }
+      this.setActivePicture(this.activePicture);
+    },
+
+    closePic: function() {
+      this.hide();
+    },
 
     show: function(number) {
-      this.closeHandler();
-      this.nextHandler();
       this.container.classList.remove('invisible');
       this.setActivePicture(number);
     },
 
     hide: function() {
       this.container.classList.add('invisible');
-      this.closeHandler = null;
-      this.nextHandler = null;
+      this.image.removeEventListener('click', this.closePic);
+      this.image.removeEventListener('click', this.showNext);
     },
 
     setActivePicture: function(showNum) {
