@@ -12,7 +12,7 @@ define(function() {
 
     image.onload = function() {
       photoElement.querySelector('img').src = image.src;
-      photoElement.setAttribute('number', number);
+      photoElement.querySelector('img').setAttribute('number', number);
     };
     image.onerror = function() {
       photoElement.classList.add('picture-load-failure');

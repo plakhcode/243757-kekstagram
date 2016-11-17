@@ -10,6 +10,7 @@ define(function() {
     this.container = document.querySelector('.gallery-overlay');
     this.close = document.querySelector('.gallery-overlay-close');
     this.image = document.querySelector('.gallery-overlay-image');
+//    this.activePicture = 0;
 
     this.showNext = this.showNext.bind(this);
     this.closePic = this.closePic.bind(this);
@@ -23,7 +24,7 @@ define(function() {
     showNext: function(e) {
       e.preventDefault();
       if (this.activePicture < (this.pictures.length - 1)) {
-        this.activePicture = this.activePicture + 1;
+        this.activePicture = +this.activePicture + 1;
       } else {
         this.activePicture = 0;
       }
@@ -53,7 +54,6 @@ define(function() {
       this.likes.textContent = this.galLikes[showNum].textContent;
       this.comments.textContent = this.galComm[showNum].textContent;
     }
-
   };
 
   return Gallery;

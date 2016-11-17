@@ -3,22 +3,21 @@
 define(['./gallery'], function(Gallery) {
 
   return function() {
-    var initGallery = function() {
+    var initGallery = function(number) {
       var commenter = document.querySelectorAll('.picture-comments');
       var liker = document.querySelectorAll('.picture-likes');
       var imger = document.querySelectorAll('.picture img');
       var gallery = new Gallery(imger, commenter, liker);
-      gallery.show(10);
+      gallery.show(number);
     };
 
     var pictureSquare = document.querySelectorAll('div.pictures > a');
-    console.log(pictureSquare[10]);
-    var num = pictureSquare[10].getAttribute('number');
-    console.log(num);
+
     for (var i = 0; i < pictureSquare.length; i++) {
       pictureSquare[i].onclick = function(e) {
         e.preventDefault();
-        initGallery();
+        var num = e.target.getAttribute('number');
+        initGallery(num);
       };
     }
   };
