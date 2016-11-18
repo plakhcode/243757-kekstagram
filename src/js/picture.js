@@ -1,10 +1,8 @@
 'use strict';
 
-define(['./gallery'], function(Gallery) {
+define(['./gallery'], function(gallery) {
 
   return function() {
-
-    var gallery = new Gallery();
 
     var pictureSquare = document.querySelectorAll('div.pictures > a');
 
