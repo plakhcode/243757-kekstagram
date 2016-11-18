@@ -2,21 +2,22 @@
 
 define(function() {
 
-  var Gallery = function(pictures, galComm, galLikes) {
+  var Gallery = function(galComm, galLikes) {
 
-    this.pictures = pictures;
+    this.setPictures = function(pict) {
+      this.imageArr = pict;
+      console.log(this.imageArr);
+    };
     this.galComm = galComm;
     this.galLikes = galLikes;
     this.container = document.querySelector('.gallery-overlay');
     this.close = document.querySelector('.gallery-overlay-close');
     this.image = document.querySelector('.gallery-overlay-image');
-//    this.activePicture = 0;
 
     this.showNext = this.showNext.bind(this);
     this.closePic = this.closePic.bind(this);
     this.image.addEventListener('click', this.showNext);
     this.close.addEventListener('click', this.closePic);
-
   };
 
   Gallery.prototype = {
@@ -48,11 +49,13 @@ define(function() {
 
     setActivePicture: function(showNum) {
       this.activePicture = showNum;
-      this.image.src = this.pictures[showNum].src;
+      console.log(showNum);
+      console.log(this.imageArr);
+      this.image.src = this.imageArr[showNum].url;
       this.likes = document.querySelector('.likes-count');
       this.comments = document.querySelector('.comments-count');
-      this.likes.textContent = this.galLikes[showNum].textContent;
-      this.comments.textContent = this.galComm[showNum].textContent;
+      this.likes.textContent = this.imageArr[showNum].likes;
+      this.comments.textContent = this.imageArr[showNum].comments;
     }
   };
 

@@ -3,13 +3,8 @@
 define(['./gallery'], function(Gallery) {
 
   return function() {
-    var initGallery = function(number) {
-      var commenter = document.querySelectorAll('.picture-comments');
-      var liker = document.querySelectorAll('.picture-likes');
-      var imger = document.querySelectorAll('.picture img');
-      var gallery = new Gallery(imger, commenter, liker);
-      gallery.show(number);
-    };
+
+    var gallery = new Gallery();
 
     var pictureSquare = document.querySelectorAll('div.pictures > a');
 
@@ -17,7 +12,7 @@ define(['./gallery'], function(Gallery) {
       pictureSquare[i].onclick = function(e) {
         e.preventDefault();
         var num = e.target.getAttribute('number');
-        initGallery(num);
+        gallery.show(num);
       };
     }
   };
