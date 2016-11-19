@@ -3,15 +3,12 @@
 define(function() {
 
   var Gallery = function() {
-
     this.container = document.querySelector('.gallery-overlay');
     this.close = document.querySelector('.gallery-overlay-close');
     this.image = document.querySelector('.gallery-overlay-image');
     this.activePicture = 0;
     this.showNext = this.showNext.bind(this);
     this.closePic = this.closePic.bind(this);
-    this.image.addEventListener('click', this.showNext);
-    this.close.addEventListener('click', this.closePic);
   };
 
   Gallery.prototype = {
@@ -34,6 +31,8 @@ define(function() {
     },
 
     show: function(number) {
+      this.image.addEventListener('click', this.showNext);
+      this.close.addEventListener('click', this.closePic);
       this.container.classList.remove('invisible');
       this.setActivePicture(number);
     },
