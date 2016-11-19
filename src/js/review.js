@@ -1,7 +1,7 @@
 'use strict';
 
 define(function() {
-  return function(photos) {
+  return function(photos, number) {
 
     var template = document.querySelector('template');
     var templateContainer = 'content' in template ? template.content : template;
@@ -12,6 +12,7 @@ define(function() {
 
     image.onload = function() {
       photoElement.querySelector('img').src = image.src;
+      photoElement.querySelector('img').setAttribute('number', number);
     };
     image.onerror = function() {
       photoElement.classList.add('picture-load-failure');

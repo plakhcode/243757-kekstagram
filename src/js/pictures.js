@@ -1,6 +1,6 @@
 'use strict';
 
-define(['./review', './load'], function(review, load) {
+define(['./review', './load', './gallery', './picture'], function(review, load, gallery, picture) {
   return function() {
     document.querySelector('.filters').classList.add('hidden');
 
@@ -8,13 +8,17 @@ define(['./review', './load'], function(review, load) {
 
     var container = document.querySelector('.pictures');
 
-    var setPictures = function(pictures) {
-      pictures.forEach(function(photo) {
-        container.appendChild(review(photo));
+    var drawPictures = function(myPictures) {
+      myPictures.forEach(function(photo, i) {
+        container.appendChild(review(photo, i));
+        i += i;
       });
+      picture();
+      gallery.setPictures(myPictures);
+
     };
 
-    load(PICTURES_DATA_URL, setPictures);
+    load(PICTURES_DATA_URL, drawPictures);
 
     document.querySelector('.filters').classList.remove('hidden');
   };
