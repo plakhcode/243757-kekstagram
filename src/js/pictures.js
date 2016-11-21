@@ -19,6 +19,8 @@ define(['./review', './load', './gallery', './picture'], function(review, load, 
       });
       picture();
       gallery.setPictures(myPictures);
+      var height = container.offsetHeight;
+      fillWindow(height);
     };
 
     var pageSize = 12;
@@ -35,8 +37,10 @@ define(['./review', './load', './gallery', './picture'], function(review, load, 
 
     loadPictures(activeFilter, pageNumber);
 
-    window.onload = function() {
-      console.log('Размер окна: ' + window.innerHeight + '; Размер контейнера: ' + container.offsetHeight);
+    var fillWindow = function(count) {
+      if (count < window.innerHeight) {
+        loadPictures(activeFilter, ++pageNumber);
+      }
     };
 
     window.addEventListener('scroll', function() {
