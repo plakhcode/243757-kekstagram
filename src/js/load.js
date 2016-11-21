@@ -3,18 +3,20 @@
 define(function() {
   return function(url, callback) {
 
-    window.__jsonpCallback = function(data) {
-      callback(data);
-      script.parentNode.removeChild(script);
-    };
+    var xhr = new XMLHttpRequest();
 
-    var script = document.createElement('script');
-
-    script.onerror = function() {
-      script.parentNode.removeChild(script);
-    };
-
-    script.src = url + (url.match(/\?/) ? '&' : '?') + 'callback=__jsonpCallback';
-    document.body.appendChild(script);
+    xhr.open('GET', url);
+    xhr.addEventListener('load', function(evt) {
+      console.log(evt.target);
+      try {
+        callback = JSON.parse(evt.target.response);
+        console.log(JSON.stringify(callback));
+        console.log(callback);
+      } catch(err) {
+        console.log('JSON error');
+      }
+    });
+    xhr.send();
   };
 });
+
