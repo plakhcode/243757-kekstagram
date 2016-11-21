@@ -5,7 +5,7 @@ define(['./review', './load', './gallery', './picture'], function(review, load, 
     document.querySelector('.filters').classList.add('hidden');
 
     var PICTURES_DATA_URL = 'http://localhost:1507/api/pictures';
-    var GAP = 100;
+    var GAP = 300;
     var TROTTLE_TIMEOUT = 100;
     var container = document.querySelector('.pictures');
     var filters = document.querySelector('.filters');
@@ -25,7 +25,7 @@ define(['./review', './load', './gallery', './picture'], function(review, load, 
 
     var pageSize = 12;
     var pageNumber = 0;
-    var activeFilter = 'without-filter';
+    var activeFilter = 'filter-popular';
 
     var loadPictures = function(filter, currentPageNumber) {
       load(PICTURES_DATA_URL, {
@@ -60,10 +60,8 @@ define(['./review', './load', './gallery', './picture'], function(review, load, 
       loadPictures(activeFilter, pageNumber);
     };
 
-    filters.addEventListener('click', function(evt) {
-      if (evt.target.classList.contains('filters-radio')) {
-        change(evt.target.id);
-      }
+    filters.addEventListener('change', function(evt) {
+      change(evt.target.id);
     });
 
     document.querySelector('.filters').classList.remove('hidden');

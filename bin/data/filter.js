@@ -14,8 +14,6 @@ module.exports = function(list, filterID) {
       return list.sort(function(a, b) {
         return b.comments - a.comments;
       });
-    case 'without-filter':
-      return list;
   }
   return list;
 };
