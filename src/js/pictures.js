@@ -9,14 +9,12 @@ define(['./review', './load', './gallery', './picture'], function(review, load, 
     var container = document.querySelector('.pictures');
 
     var drawPictures = function(myPictures) {
-      console.log(myPictures);
       myPictures.forEach(function(photo, i) {
         container.appendChild(review(photo, i));
         i += i;
       });
       picture();
       gallery.setPictures(myPictures);
-
     };
 
     load(PICTURES_DATA_URL, drawPictures);

@@ -7,11 +7,9 @@ define(function() {
 
     xhr.open('GET', url);
     xhr.addEventListener('load', function(evt) {
-      console.log(evt.target);
       try {
-        callback = JSON.parse(evt.target.response);
-        console.log(JSON.stringify(callback));
-        console.log(callback);
+        var loadedData = JSON.parse(evt.target.response);
+        callback(loadedData);
       } catch(err) {
         console.log('JSON error');
       }
