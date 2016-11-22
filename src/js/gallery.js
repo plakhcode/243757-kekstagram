@@ -9,11 +9,14 @@ define(function() {
     this.activePicture = 0;
     this.showNext = this.showNext.bind(this);
     this.closePic = this.closePic.bind(this);
+    this.imageArr = [];
   };
 
   Gallery.prototype = {
     setPictures: function(pict) {
-      this.imageArr = pict;
+      for (var i = 0; i < pict.length; i++) {
+        this.imageArr.push(pict[i]);
+      }
     },
 
     showNext: function(e) {

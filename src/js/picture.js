@@ -10,7 +10,6 @@ define(['./gallery'], function(gallery) {
       pictureSquare[i].onclick = function(e) {
         e.preventDefault();
         var num = e.target.getAttribute('number');
-        console.log(num);
         gallery.show(num);
       };
     }
