@@ -1,20 +1,28 @@
 'use strict';
 
 define(function() {
-  return function(url, callback) {
 
-    window.__jsonpCallback = function(data) {
-      callback(data);
-      script.parentNode.removeChild(script);
-    };
+  var getSearchString = function(params) {
+    return Object.keys(params).map(function(param) {
+      return [param, params[param]].join('=');
+    }).join('&');
+  };
 
-    var script = document.createElement('script');
+  return function(url, params, callback) {
 
-    script.onerror = function() {
-      script.parentNode.removeChild(script);
-    };
+    var xhr = new XMLHttpRequest();
 
-    script.src = url + (url.match(/\?/) ? '&' : '?') + 'callback=__jsonpCallback';
-    document.body.appendChild(script);
+    xhr.open('GET', url + '?' + getSearchString(params));
+
+    xhr.addEventListener('load', function(evt) {
+      try {
+        var loadedData = JSON.parse(evt.target.response);
+        callback(loadedData);
+      } catch(err) {
+        console.log('JSON error');
+      }
+    });
+    xhr.send();
   };
 });
+
