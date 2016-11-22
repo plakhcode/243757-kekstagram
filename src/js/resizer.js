@@ -96,105 +96,46 @@ define(function() {
       // Отрисовка прямоугольника, обозначающего область изображения после
       // кадрирования. Координаты задаются от центра.
 
+      // Толщина линии.
+      this._ctx.lineWidth = 6;
+      // Цвет обводки.
+      this._ctx.strokeStyle = '#ffe753';
+      // Размер штрихов. Первый элемент массива задает длину штриха, второй
+      // расстояние между соседними штрихами.
+      this._ctx.setLineDash([15, 10]);
+      // Смещение первого штриха от начала линии.
+      this._ctx.lineDashOffset = 7;
+
       var imgWidth = this._image.naturalWidth;
       var imgHeight = this._image.naturalHeight;
-      var brokenLineSide = 15;
 
       this._ctx.beginPath();
       this._ctx.moveTo(-(imgWidth / 2), -(imgHeight / 2));
       this._ctx.lineTo((imgWidth / 2), -(imgHeight / 2));
       this._ctx.lineTo((imgWidth / 2), (imgHeight / 2));
-      this._ctx.lineTo((this._resizeConstraint.side / 2 + brokenLineSide / 2), (this._resizeConstraint.side / 2 + brokenLineSide / 2));
-      this._ctx.lineTo((this._resizeConstraint.side / 2 + brokenLineSide / 2), (-this._resizeConstraint.side / 2 - brokenLineSide / 2));
-      this._ctx.lineTo((-this._resizeConstraint.side / 2 - brokenLineSide / 2), (-this._resizeConstraint.side / 2 - brokenLineSide / 2));
-      this._ctx.lineTo((-this._resizeConstraint.side / 2 - brokenLineSide / 2), (this._resizeConstraint.side / 2 + brokenLineSide / 2));
-      this._ctx.lineTo((this._resizeConstraint.side / 2 + brokenLineSide / 2), (this._resizeConstraint.side / 2 + brokenLineSide / 2));
+      this._ctx.lineTo((this._resizeConstraint.side / 2), (this._resizeConstraint.side / 2));
+      this._ctx.lineTo((this._resizeConstraint.side / 2), (-this._resizeConstraint.side / 2));
+      this._ctx.lineTo((-this._resizeConstraint.side / 2), (-this._resizeConstraint.side / 2));
+      this._ctx.lineTo((-this._resizeConstraint.side / 2), (this._resizeConstraint.side / 2));
+      this._ctx.lineTo((this._resizeConstraint.side / 2), (this._resizeConstraint.side / 2));
       this._ctx.lineTo((imgWidth / 2), (imgHeight / 2));
       this._ctx.lineTo(-(imgWidth / 2), (imgHeight / 2));
       this._ctx.lineTo(-(imgWidth / 2), -(imgHeight / 2));
       this._ctx.fillStyle = 'rgba(0, 0, 0, 0.8)';
       this._ctx.fill();
 
-      var linesAmount = this._resizeConstraint.side / brokenLineSide;
-      if ((Math.round(linesAmount) + 1) % 2) {
-        linesAmount = linesAmount + 1;
-      } else {
-        linesAmount = linesAmount + 0;
-      }
-      var step = this._resizeConstraint.side / Math.round(linesAmount);
-      var i = 1;
-      this._ctx.strokeStyle = '#ffe753';
-      this._ctx.lineWidth = 4;
+      this._ctx.strokeRect(
+          (-this._resizeConstraint.side / 2) + this._ctx.lineWidth / 2,
+          (-this._resizeConstraint.side / 2) + this._ctx.lineWidth / 2,
+          this._resizeConstraint.side - this._ctx.lineWidth,
+          this._resizeConstraint.side - this._ctx.lineWidth);
 
-      var x = (-this._resizeConstraint.side / 2 + step / 2);
-      var y = (-this._resizeConstraint.side / 2 - step / 2);
-
-      for (x; x <= this._resizeConstraint.side / 2; x = x + step) {
-        this._ctx.beginPath();
-        if (i % 2) {
-          this._ctx.moveTo(x - this._ctx.lineWidth / 2, y);
-          this._ctx.lineTo(x + step, y + step);
-        } else {
-          this._ctx.moveTo(x - this._ctx.lineWidth / 2, y + step);
-          this._ctx.lineTo(x + step, y);
-        }
-        this._ctx.stroke();
-        i++;
-      }
-
-      y = (-this._resizeConstraint.side / 2 + step / 2);
-      i = 1;
-
-      for (y; y <= this._resizeConstraint.side / 2; y = y + step) {
-        this._ctx.beginPath();
-        if (i % 2) {
-          this._ctx.moveTo(x, y - this._ctx.lineWidth / 2);
-          this._ctx.lineTo(x - step, y + step);
-        } else {
-          this._ctx.moveTo(x - step, y - this._ctx.lineWidth / 2);
-          this._ctx.lineTo(x, y + step);
-        }
-        this._ctx.stroke();
-        i++;
-      }
-
-      x = (this._resizeConstraint.side / 2 - step / 2);
-      i = 1;
-
-      for (x; x >= -this._resizeConstraint.side / 2; x = x - step) {
-        this._ctx.beginPath();
-        if (i % 2) {
-          this._ctx.moveTo(x + this._ctx.lineWidth / 2, y);
-          this._ctx.lineTo(x - step, y - step);
-        } else {
-          this._ctx.moveTo(x + this._ctx.lineWidth / 2, y - step);
-          this._ctx.lineTo(x - step, y);
-        }
-        this._ctx.stroke();
-        i++;
-      }
-
-      y = (this._resizeConstraint.side / 2 - step / 2);
-      i = 1;
-
-      for (y; y >= -this._resizeConstraint.side / 2; y = y - step) {
-        this._ctx.beginPath();
-        if (i % 2) {
-          this._ctx.moveTo(x, y + this._ctx.lineWidth / 2);
-          this._ctx.lineTo(x + step, y - step);
-        } else {
-          this._ctx.moveTo(x + step, y + this._ctx.lineWidth / 2);
-          this._ctx.lineTo(x, y - step);
-        }
-        this._ctx.stroke();
-        i++;
-      }
-
-      this._ctx.fillStyle = 'rgba(255, 255, 255, 1)';
+      this._ctx.fillStyle = 'rgba(255, 255, 255, 0.8)';
       this._ctx.textAlign = 'center';
       this._ctx.textBaseline = 'bottom';
       this._ctx.font = 'normal 30px sans-serif';
-      this._ctx.fillText(imgWidth + ' x ' + imgHeight, 0, -((this._resizeConstraint.side / 2) + 15));
+      this._ctx.fillText(imgWidth + ' x ' + imgHeight, 0, -((this._resizeConstraint.side / 2) + 4));
+
 
       // Восстановление состояния канваса, которое было до вызова ctx.save
       // и последующего изменения системы координат. Нужно для того, чтобы
