@@ -18,7 +18,11 @@ define(['./review', './load', './gallery', './picture'], function(review, load, 
         container.appendChild(review(photo, k));
       });
       picture();
-      gallery.setPictures(myPictures);
+      if (pageNumber < 1) {
+        gallery.setPictures(myPictures);
+      } else {
+        gallery.appendPictures(myPictures);
+      }
       var height = container.offsetHeight;
       fillWindow(height);
     };

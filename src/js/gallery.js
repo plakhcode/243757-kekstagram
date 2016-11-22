@@ -14,6 +14,10 @@ define(function() {
 
   Gallery.prototype = {
     setPictures: function(pict) {
+      this.imageArr = pict;
+    },
+
+    appendPictures: function(pict) {
       for (var i = 0; i < pict.length; i++) {
         this.imageArr.push(pict[i]);
       }
