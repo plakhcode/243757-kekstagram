@@ -205,14 +205,15 @@ define(['./resizer'], function(Resizer) {
 
     resizeSize.addEventListener('input', function() {
       validate();
-      moveFrame((+startX.value - ((resizeSize.value - startSize) / 2)), (+startY.value - ((resizeSize.value - startSize) / 2)), +resizeSize.value);
+      var step = ((resizeSize.value - startSize) / 2);
+      moveFrame(+startX.value - step, +startY.value - step, +resizeSize.value);
       startSize = +resizeSize.value;
     });
-    startX.addEventListener('input', function() {
+    startX.addEventListener('change', function() {
       validate();
       moveFrame(+startX.value, +startY.value, +resizeSize.value);
     });
-    startY.addEventListener('input', function() {
+    startY.addEventListener('change', function() {
       validate();
       moveFrame(+startX.value, +startY.value, +resizeSize.value);
     });
