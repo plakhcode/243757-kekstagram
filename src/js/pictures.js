@@ -18,7 +18,7 @@ define(['./review', './load', './gallery', './picture'], function(review, load, 
         container.appendChild(review(photo, k));
       });
       picture();
-      if (pageNumber < 1) {
+      if (pageNumber === 0) {
         gallery.setPictures(myPictures);
       } else {
         gallery.appendPictures(myPictures);

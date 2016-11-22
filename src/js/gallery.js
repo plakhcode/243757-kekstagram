@@ -9,21 +9,21 @@ define(function() {
     this.activePicture = 0;
     this.showNext = this.showNext.bind(this);
     this.closePic = this.closePic.bind(this);
-    this.imageArr = [];
+    this.pictures = [];
   };
 
   Gallery.prototype = {
-    setPictures: function(pict) {
-      this.imageArr = pict;
+    setPictures: function(pictures) {
+      this.pictures = pictures;
     },
 
-    appendPictures: function(pict) {
-      this.imageArr = this.imageArr.concat(pict);
+    appendPictures: function(pictures) {
+      this.pictures = this.pictures.concat(pictures);
     },
 
     showNext: function(e) {
       e.preventDefault();
-      if (this.activePicture < this.imageArr.length - 1) {
+      if (this.activePicture < this.pictures.length - 1) {
         this.activePicture = +this.activePicture + 1;
       } else {
         this.activePicture = 0;
@@ -50,15 +50,15 @@ define(function() {
 
     setActivePicture: function(showNum) {
       this.activePicture = showNum;
-      if (this.imageArr[showNum].preview) {
-        this.image.src = this.imageArr[showNum].preview;
+      if (this.pictures[showNum].preview) {
+        this.image.src = this.pictures[showNum].preview;
       } else {
-        this.image.src = this.imageArr[showNum].url;
+        this.image.src = this.pictures[showNum].url;
       }
       this.likes = document.querySelector('.likes-count');
       this.comments = document.querySelector('.comments-count');
-      this.likes.textContent = this.imageArr[showNum].likes;
-      this.comments.textContent = this.imageArr[showNum].comments;
+      this.likes.textContent = this.pictures[showNum].likes;
+      this.comments.textContent = this.pictures[showNum].comments;
     }
   };
 
