@@ -14,13 +14,13 @@ define(['./review', './load', './gallery', './picture'], function(review, load, 
 
     var drawPictures = function(myPictures) {
       myPictures.forEach(function(photo, i) {
-        container.appendChild(review(photo, i));
-        i = ++i;
+        var k = i + (pageNumber * pageSize);
+        container.appendChild(review(photo, k));
       });
       picture();
       gallery.setPictures(myPictures);
-//      var height = container.offsetHeight;
-//      fillWindow(height);
+      var height = container.offsetHeight;
+      fillWindow(height);
     };
 
     var pageSize = 12;
